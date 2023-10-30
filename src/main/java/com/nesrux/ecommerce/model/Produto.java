@@ -14,6 +14,6 @@ public class Produto {
     @Id
     private Long id;
     private String nome;
-    private String descicao;
+    private String descricao;
     private BigDecimal preco;
 }
