@@ -9,12 +9,30 @@ import java.math.BigDecimal;
 
 //@FixMethodOrder(MethodSorters.JVM)
 public class OperacoesComTransacaoTest extends EntityManagerTest {
+
+    @Test
+    public void atualizatObjGerenciado() {
+        Produto produto = entityManager.find(Produto.class, 1);
+
+        entityManager.getTransaction().begin();
+        produto.setDescricao("A vida é trem bala, e a proxima parada é a cardiaca");
+
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Produto produtoBaseDeDados = entityManager.find(Produto.class, 1);
+        Assert.assertEquals(produtoBaseDeDados.getDescricao(), produto.getDescricao());
+    }
+
+
+
     @Test
     public void atualizatObj() {
         Produto produto = new Produto();
         produto.setId(1);
         produto.setNome("Cleiton");
-
+        produto.setPreco(new BigDecimal("1234"));
+        produto.setDescricao("Uma descricao qualquer");
         entityManager.getTransaction().begin();
 
         /*Merge atualiza a entidade*/
