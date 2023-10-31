@@ -16,10 +16,12 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Cleiton");
 
         entityManager.getTransaction().begin();
+
+        /*Merge atualiza a entidade*/
         entityManager.merge(produto);
+
         entityManager.getTransaction().commit();
         Produto produtoBaseDeDados = entityManager.find(Produto.class, 1);
-        entityManager.clear();
 
         Assert.assertEquals(produtoBaseDeDados.getNome(), produto.getNome());
     }
@@ -34,7 +36,9 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
         entityManager.getTransaction().begin();
 
+        /*persist Salva essa entidade no banco de dados*/
         entityManager.persist(produto);
+
         entityManager.getTransaction().commit();
         entityManager.clear();
 
@@ -56,7 +60,10 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         Produto produto = entityManager.find(Produto.class, 1);
 
         entityManager.getTransaction().begin();
+
+        /*Remove deleta essa entidade do banco de dados*/
         entityManager.remove(produto);
+
         entityManager.getTransaction().commit();
         Produto produtoNulo = entityManager.find(Produto.class, 1);
 
