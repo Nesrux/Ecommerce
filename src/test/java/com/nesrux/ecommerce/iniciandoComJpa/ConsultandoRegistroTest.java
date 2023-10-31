@@ -9,13 +9,13 @@ public class ConsultandoRegistroTest extends EntityManagerTest {
 
     @Test
     public void buscarIdentificador() {
-        Produto produto = entityManager.find(Produto.class, 1L);
+        Produto produto = entityManager.find(Produto.class, 1);
         Assert.assertNotNull(produto);
         Assert.assertEquals("Kindle", produto.getNome());
     }
     @Test
     public void atualizarReferencia(){
-        Produto produto = entityManager.find(Produto.class, 1L);
+        Produto produto = entityManager.find(Produto.class, 1);
         produto.setNome("Microfone");
 
         entityManager.refresh(produto);
