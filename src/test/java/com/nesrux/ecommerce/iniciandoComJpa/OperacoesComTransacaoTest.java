@@ -9,6 +9,20 @@ import java.math.BigDecimal;
 
 //@FixMethodOrder(MethodSorters.JVM)
 public class OperacoesComTransacaoTest extends EntityManagerTest {
+    @Test
+    public void atualizatObj() {
+        Produto produto = new Produto();
+        produto.setId(1);
+        produto.setNome("Cleiton");
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+        Produto produtoBaseDeDados = entityManager.find(Produto.class, 1);
+        entityManager.clear();
+
+        Assert.assertEquals(produtoBaseDeDados.getNome(), produto.getNome());
+    }
 
     @Test
     public void inserirObjeto() {
@@ -31,7 +45,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void abrirEFecharTransacao() {
-        Produto produto = new Produto();
         //Inicia a transacao
         entityManager.getTransaction().begin();
         //Fecha transaçãp
@@ -49,4 +62,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
         Assert.assertNull(produtoNulo);
     }
+
+
 }
