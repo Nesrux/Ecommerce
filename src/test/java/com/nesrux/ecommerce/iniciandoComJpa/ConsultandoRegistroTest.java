@@ -37,8 +37,17 @@ public class ConsultandoRegistroTest {
     }
 
     @Test
-    public void testarConsulta() {
+    public void buscarIdentificador() {
         Produto produto = entityManager.find(Produto.class, 1L);
-        System.out.println(produto.getNome());
+        Assert.assertNotNull(produto);
+        Assert.assertEquals("Kindle", produto.getNome());
+    }
+    @Test
+    public void atualizarReferencia(){
+        Produto produto = entityManager.find(Produto.class, 1L);
+        produto.setNome("Microfone");
+
+        entityManager.refresh(produto);
+        Assert.assertEquals("Kindle", produto.getNome());
     }
 }
