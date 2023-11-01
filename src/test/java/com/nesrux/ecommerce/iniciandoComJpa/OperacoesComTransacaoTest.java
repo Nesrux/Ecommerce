@@ -11,6 +11,28 @@ import java.math.BigDecimal;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
+    public void inserirObjetoComMerge() {
+        Produto produto = new Produto();
+        produto.setId(3);
+        produto.setNome("Cbum");
+        produto.setDescricao("Quem você pensa que é ?");
+        produto.setPreco(new BigDecimal("5000"));
+
+        entityManager.getTransaction().begin();
+        /*Caso nao exista essa entidade no banco de dados,
+         * o método merge cria uma nova instancia, ou seja é uma
+         * querry a mais, caso ele ja exista ele só atualiza*/
+        entityManager.merge(produto);
+
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Produto produtoInserido = entityManager.find(Produto.class, 3);
+        System.out.println(produtoInserido);
+        Assert.assertNotNull(produtoInserido);
+    }
+
+    @Test
     public void atualizatObjGerenciado() {
         Produto produto = entityManager.find(Produto.class, 1);
 
@@ -23,7 +45,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         Produto produtoBaseDeDados = entityManager.find(Produto.class, 1);
         Assert.assertEquals(produtoBaseDeDados.getDescricao(), produto.getDescricao());
     }
-
 
 
     @Test
