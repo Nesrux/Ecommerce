@@ -3,6 +3,7 @@ package com.nesrux.ecommerce.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,10 +20,13 @@ public class Pedido {
     @Id
     private Integer id;
 
+    @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
 
+    @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
+    @Column(name = "nota_fiscal_id")
     private Integer notaFiscalId;
 
     private BigDecimal total;
