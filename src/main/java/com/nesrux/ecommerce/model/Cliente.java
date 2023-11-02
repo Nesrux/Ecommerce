@@ -18,7 +18,5 @@ public class Cliente {
 
 
 
-    public enum SexoCliente {
-        MASCULINO, FEMININO
-    }
+
 }
