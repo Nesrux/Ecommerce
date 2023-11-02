@@ -13,9 +13,12 @@ import java.math.BigDecimal;
 public class PagamentoCartao {
     @Id
     @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name="pedido_id")
     private Integer pedidoId;
+
     @Enumerated(EnumType.STRING)
     private StatusPagamento status;
 

@@ -12,6 +12,7 @@ import javax.persistence.*;
 public class Cliente {
     @Id
     @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
 
