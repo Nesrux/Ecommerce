@@ -3,9 +3,7 @@ package com.nesrux.ecommerce.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,9 +14,9 @@ public class Cliente {
     @EqualsAndHashCode.Include
     private Integer id;
     private String nome;
+
+    @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
-
-
 
 
 }
