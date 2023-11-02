@@ -5,11 +5,13 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "pagamento_cartao")
 public class PagamentoCartao {
     @Id
     @EqualsAndHashCode.Include
