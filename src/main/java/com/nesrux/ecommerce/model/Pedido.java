@@ -27,6 +27,10 @@ public class Pedido {
     private Integer notaFiscalId;
 
     private BigDecimal total;
+
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
+
+    @Embedded
+    private Endereco enderecoEntrega;
 }
