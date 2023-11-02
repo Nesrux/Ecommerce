@@ -22,7 +22,6 @@ public class MapeamentoObjEmbutidoTest extends EntityManagerTest {
         endereco.setCidade("São paulo");
 
         Pedido pedido = new Pedido();
-        pedido.setId(1);
         pedido.setDataPedido(LocalDateTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO);
 

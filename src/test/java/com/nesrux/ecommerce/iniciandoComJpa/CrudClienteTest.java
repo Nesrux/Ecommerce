@@ -12,7 +12,6 @@ public class CrudClienteTest extends EntityManagerTest {
     public void CriarUsuario() {
         Cliente cliente = new Cliente();
         cliente.setNome("Marcelo amorin");
-        cliente.setId(3);
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
         entityManager.getTransaction().commit();

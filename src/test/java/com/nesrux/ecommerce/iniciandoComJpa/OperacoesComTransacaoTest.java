@@ -68,7 +68,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void inserirObjeto() {
         Produto produto = new Produto();
-        produto.setId(2);
         produto.setNome("Câmera");
         produto.setDescricao("Camera pika");
         produto.setPreco(new BigDecimal("5000"));
@@ -81,7 +80,8 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Produto produtoInserido = entityManager.find(Produto.class, 2);
+        Produto produtoInserido = entityManager.find(Produto.class, produto.getId());
+
         Assert.assertNotNull(produtoInserido);
     }
 

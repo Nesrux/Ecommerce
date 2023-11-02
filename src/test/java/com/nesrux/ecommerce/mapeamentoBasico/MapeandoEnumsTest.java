@@ -11,7 +11,6 @@ public class MapeandoEnumsTest extends EntityManagerTest {
     @Test
     public void testarEnum(){
         Cliente cliente = new Cliente();
-        cliente.setId(4);
         cliente.setNome("Maria");
         cliente.setSexo(SexoCliente.FEMININO);
 
@@ -20,7 +19,8 @@ public class MapeandoEnumsTest extends EntityManagerTest {
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Cliente clienteSalvo = entityManager.find(Cliente.class, 4);
+        Cliente clienteSalvo = entityManager.find(Cliente.class, 3);
+        System.out.println(clienteSalvo.getNome());
         Assert.assertNotNull(clienteSalvo);
 
     }
