@@ -11,14 +11,15 @@ public class ManyToManyTest extends EntityManagerTest {
     public void verificarRelacionamento() {
         Produto produto = entityManager.find(Produto.class, 1);
         Categoria categoria = entityManager.find(Categoria.class, 1);
-
+        /*Isso só funciona pois, o Produto é o owner dessa relação, ou seja O jpa só salva os dados
+         * se forem salvos pelo dado no owner, se eu tentasse salvar a partir da classe categoria, isso nao iria funcionar
+         * e me retornaria uma exception*/
         entityManager.getTransaction().begin();
         produto.getCategorias().add(categoria);
-//        categoria.getProdutos().add(produto);
         entityManager.getTransaction().commit();
         entityManager.clear();
+
         Produto produtoVerify = entityManager.find(Produto.class, produto.getId());
-        //Categoria categoriaverify = entityManager.find(Categoria.class, categoria.getId());
         Assert.assertFalse(produtoVerify.getCategorias().isEmpty());
 
     }
