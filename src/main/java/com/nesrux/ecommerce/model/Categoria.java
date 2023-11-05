@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,8 +23,8 @@ public class Categoria {
     /*Many to one é o owner*/
     @ManyToOne
     @JoinColumn(name = "categoria_pai_id")
-    private Integer categoriaPai;
+    private Categoria categoriaPai;
 
     @OneToMany(mappedBy = "categoriaPai")
-    private List<Categoria> categorias;
+    private List<Categoria> categorias = new ArrayList<>();
 }

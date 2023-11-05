@@ -13,7 +13,7 @@ public class AutoRelacionamentoTest extends EntityManagerTest {
 
         Categoria categoriaFilha = new Categoria();
         categoriaFilha.setNome("Telefones moveis");
-        categoriaFilha.setCategoriaPai(categoria.getId());
+        categoriaFilha.setCategoriaPai(categoria);
 
         categoria.getCategorias().add(categoriaFilha);
 
@@ -31,6 +31,12 @@ public class AutoRelacionamentoTest extends EntityManagerTest {
                 categoriaFilha.getId());
 
         Assert.assertNotNull(categoriaPaiPersistida);
-        Assert.assertNotNull(categoriaPaiPersistida);
+
+        Assert.assertNotNull(categoriaFilhaPersistida);
+
+        Assert.assertNotNull(categoriaFilhaPersistida.getCategoriaPai());
+
+        Assert.assertTrue(categoriaPaiPersistida.getCategorias().stream()
+                .findFirst().isPresent());
     }
 }
