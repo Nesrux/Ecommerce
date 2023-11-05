@@ -14,6 +14,7 @@ public class Cliente {
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome;
 
     @Enumerated(EnumType.STRING)
