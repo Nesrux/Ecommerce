@@ -27,4 +27,10 @@ public class Categoria {
 
     @OneToMany(mappedBy = "categoriaPai")
     private List<Categoria> categorias = new ArrayList<>();
+    /*Nesse caso nao precisa de muitas configuraçoes, pois o Jpa sabe que essa entidade
+     * nao é p owner da relação.*/
+    /*Ele só esta definindo onde ele vai pegar essa relação, que no caso e na propriedade
+     * "categorias" da entidade produto*/
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos = new ArrayList<>();
 }
