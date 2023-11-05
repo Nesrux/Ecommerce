@@ -1,8 +1,6 @@
 package com.nesrux.ecommerce.relacionamentos;
 
-import com.nesrux.ecommerce.model.Cliente;
-import com.nesrux.ecommerce.model.Pedido;
-import com.nesrux.ecommerce.model.StatusPedido;
+import com.nesrux.ecommerce.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;
@@ -12,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class RelacionamentoManyToOneTest extends EntityManagerTest {
     @Test
-    public void verificarRelacionamento() {
+    public void verificarRelacionamentoClientePedido() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
 
         Pedido pedido = new Pedido();
@@ -30,5 +28,33 @@ public class RelacionamentoManyToOneTest extends EntityManagerTest {
         Assert.assertNotNull(pedidoSalvo);
         Assert.assertNotNull(pedidoSalvo.getCliente());
         System.out.println(pedido.getId());
+    }
+
+    @Test
+    public void verificarRelacionamentoItemPedido_com_produto_e_pedido() {
+        Cliente cliente = entityManager.find(Cliente.class, 1);
+        Produto produto = entityManager.find(Produto.class, 1);
+
+        Pedido pedido = new Pedido();
+        pedido.setCliente(cliente);
+        pedido.setDataPedido(LocalDateTime.now());
+        pedido.setStatus(StatusPedido.AGUARDANDO);
+        pedido.setTotal(BigDecimal.TEN);
+
+        ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setProduto(produto);
+        itemPedido.setPedido(pedido);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(pedido);
+        entityManager.persist(itemPedido);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        ItemPedido itemPedidoPersistido = entityManager.find(ItemPedido.class,
+                itemPedido.getId());
+
+        Assert.assertNotNull(itemPedidoPersistido);
+        Assert.assertNotNull(itemPedidoPersistido.getProduto());
     }
 }
