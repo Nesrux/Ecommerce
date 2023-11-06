@@ -19,7 +19,14 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    /*A propriedade optional, se refere a aquele valor pode ou nao pode estar lá, por exemplo
+     * quando o hibernate faz a query para instanciar esse Pedido, ele faz joins para todas as propriedades
+     * mapeadas de outra classe, como ele nao tem 100% de certeza que a quela propriedade mapeada pode ou nao
+     * pode existir, ele faz um left join (caso nao entenda, olhe num grafico de conjunto, seria a parte esquerda
+     * e a a intersecção desses 2 valores)*/
+    /*Com essa propriedade marcada como false, ou seja todos os pedidos obrigatoriamente tem um cliente, ele faz um
+     * inner join direto, ou seja só carrega a intersecção dos valores, que é mais performatico pois carrega menos dados*/
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
