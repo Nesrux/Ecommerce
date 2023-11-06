@@ -96,16 +96,27 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     public void removerObjeto() {
-        Produto produto = entityManager.find(Produto.class, 1);
+        Produto produto = new Produto();
+        produto.setNome("Renatão de 4");
+        produto.setDescricao("Um delicioso hamburguer feito de vacas dos alpes suiços");
+        produto.setPreco(BigDecimal.ZERO);
 
+        //Transação de criação
         entityManager.getTransaction().begin();
-
-        /*Remove deleta essa entidade do banco de dados*/
-        entityManager.remove(produto);
-
+        entityManager.persist(produto);
         entityManager.getTransaction().commit();
-        Produto produtoNulo = entityManager.find(Produto.class, 1);
+        entityManager.clear();
 
+        Produto produtoPersistido = entityManager.find(Produto.class,
+                produto.getId());
+
+        //Transação de remoção
+        entityManager.getTransaction().begin();
+        /*Remove deleta essa entidade do banco de dados*/
+        entityManager.remove(produtoPersistido);
+        entityManager.getTransaction().commit();
+
+        Produto produtoNulo = entityManager.find(Produto.class, produto.getId());
         Assert.assertNull(produtoNulo);
     }
 

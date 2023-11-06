@@ -1,9 +1,6 @@
 package com.nesrux.ecommerce.mapeamentoBasico;
 
-import com.nesrux.ecommerce.model.Cliente;
-import com.nesrux.ecommerce.model.Endereco;
-import com.nesrux.ecommerce.model.Pedido;
-import com.nesrux.ecommerce.model.StatusPedido;
+import com.nesrux.ecommerce.model.*;
 import org.junit.Test;
 import util.EntityManagerTest;
 
@@ -15,7 +12,9 @@ import static org.junit.Assert.assertNotNull;
 public class MapeamentoObjEmbutidoTest extends EntityManagerTest {
     @Test
     public void analisarObjEmbutido() {
-        Cliente cliente = entityManager.find(Cliente.class, 2);
+        Cliente cliente = new Cliente();
+        cliente.setNome("Cliente Teste mapeamentoEmbutido");
+        cliente.setSexo(SexoCliente.FEMININO);
 
         Endereco endereco = new Endereco();
         endereco.setBairro("Santa Etelvina");
@@ -32,14 +31,15 @@ public class MapeamentoObjEmbutidoTest extends EntityManagerTest {
 
         entityManager.getTransaction().begin();
 
+        entityManager.persist(cliente);
         entityManager.persist(pedido);
-
 
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Pedido pedidoPersitido = entityManager.find(Pedido.class, 1);
+        Pedido pedidoPersitido = entityManager.find(Pedido.class, pedido.getId());
         Endereco enderecoPersistido = pedidoPersitido.getEnderecoEntrega();
+
 
         assertNotNull(pedidoPersitido);
         assertNotNull(enderecoPersistido);

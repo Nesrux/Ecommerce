@@ -14,6 +14,7 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="89d920f6-9a43-4e81-b54b-c8e16961a5ce">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
+      <console name="Eccomerce" type="STANDARD" schema="" session="Main"><![CDATA[select * from ecommerce.pedido inner join ecommerce.cliente]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
