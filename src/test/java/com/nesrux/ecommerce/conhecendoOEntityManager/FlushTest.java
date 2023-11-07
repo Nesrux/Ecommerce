@@ -5,14 +5,19 @@ import com.nesrux.ecommerce.model.StatusPedido;
 import org.junit.Test;
 import util.EntityManagerTest;
 
-public class GerenciamentoTransacaoTest extends EntityManagerTest {
-
+public class FlushTest extends EntityManagerTest {
     @Test(expected = Exception.class)
-    public void abrirEFecharTransacao() {
+    public void chamarFlush() {
         try {
             entityManager.getTransaction().begin();
-            metodoDenegocio();
+            Pedido pedido = entityManager.find(Pedido.class, 1);
+            pedido.setStatus(StatusPedido.PAGO);
+
+            if (pedido.getPagamento() == null) {
+                throw new RuntimeException("Pedido ainda nao foi pago");
+            }
             entityManager.getTransaction().commit();
+
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
@@ -21,13 +26,4 @@ public class GerenciamentoTransacaoTest extends EntityManagerTest {
 
     }
 
-    private void metodoDenegocio() {
-        Pedido pedido = entityManager.find(Pedido.class, 1);
-        pedido.setStatus(StatusPedido.PAGO);
-
-        if (pedido.getPagamento() == null) {
-            throw new RuntimeException("Pedido ainda nao foi pago");
-        }
-    }
 }
-
