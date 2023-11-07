@@ -54,5 +54,6 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
         Pedido pedidoPersistido = entityManager.find(Pedido.class, 1);
         Assert.assertNotNull(pedidoPersistido.getNotaFiscal());
+        //TODO arrumar isso depois, o assention esta dando erro, pois mechi nos dados
     }
 }
