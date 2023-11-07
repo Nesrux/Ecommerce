@@ -35,8 +35,11 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
-    @Column(name = "data_pedido")
-    private LocalDateTime dataPedido;
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "data_ultima_atualizacao")
+    private LocalDateTime dataUltimaAtualizacao;
 
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
@@ -52,4 +55,15 @@ public class Pedido {
 
     @Embedded
     private Endereco enderecoEntrega;
+
+    //Callbacks do JPA
+    @PrePersist
+    public void aoPersistir() {
+        dataCriacao = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void aoAtualizar() {
+        dataUltimaAtualizacao = LocalDateTime.now();
+    }
 }
