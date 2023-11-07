@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.model;
 
+import com.nesrux.ecommerce.listener.GerarNotaFiscalListener;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners(GerarNotaFiscalListener.class)
 @Table(name = "pedido")
 public class Pedido {
 
@@ -57,17 +59,23 @@ public class Pedido {
     @Embedded
     private Endereco enderecoEntrega;
 
+    public boolean isPago(){
+        return StatusPedido.PAGO.equals(status);
+    }
+
     //Callbacks do JPA
     /*Só pode existir uma anotação por classe de callback do JPa, caso o contrario ele da uma
      * Exception*/
     @PrePersist
     public void aoPersistir() {
+        System.out.println("Ao persistir o dado");
         dataCriacao = LocalDateTime.now();
         calcularValorTotal();
     }
 
     @PreUpdate
     public void aoAtualizar() {
+        System.out.println("ao atualizar o dado");
         dataUltimaAtualizacao = LocalDateTime.now();
         calcularValorTotal();
     }
