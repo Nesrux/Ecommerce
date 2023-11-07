@@ -58,13 +58,25 @@ public class Pedido {
     private Endereco enderecoEntrega;
 
     //Callbacks do JPA
+    /*Só pode existir uma anotação por classe de callback do JPa, caso o contrario ele da uma
+     * Exception*/
     @PrePersist
     public void aoPersistir() {
         dataCriacao = LocalDateTime.now();
+        calcularValorTotal();
     }
 
     @PreUpdate
     public void aoAtualizar() {
         dataUltimaAtualizacao = LocalDateTime.now();
+        calcularValorTotal();
+    }
+
+    public void calcularValorTotal() {
+        this.total = itens.stream()
+                .map(item -> item.getPrecoProduto()
+                        .multiply(BigDecimal.valueOf(item.getQuantidade())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        //Vivendo e aprendendo!
     }
 }
