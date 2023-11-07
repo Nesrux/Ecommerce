@@ -9,15 +9,25 @@ public class GerenciamentoTransacaoTest extends EntityManagerTest {
 
     @Test
     public void abrirEFecharTransacao() {
-        Pedido pedido = entityManager.find(Pedido.class, 1);
-        entityManager.getTransaction().begin();
+        try {
+            entityManager.getTransaction().begin();
+            metodoDenegocio();
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        }
 
+
+    }
+
+    private void metodoDenegocio() {
+        Pedido pedido = entityManager.find(Pedido.class, 1);
         pedido.setStatus(StatusPedido.PAGO);
 
-        if (pedido.getPagamento() != null) {
-            entityManager.getTransaction().commit();
-        } else
-            entityManager.getTransaction().rollback();
+        if (pedido.getPagamento() == null) {
+            throw new RuntimeException("Pedido ainda nao foi pago");
+        }
     }
 }
 
