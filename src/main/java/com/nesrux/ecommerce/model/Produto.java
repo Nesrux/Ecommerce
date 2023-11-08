@@ -2,9 +2,12 @@ package com.nesrux.ecommerce.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,4 +43,17 @@ public class Produto {
 
     @OneToOne(mappedBy = "produto")
     private Estoque estoque;
+
+    /*O atributo updateble, se refere que esse atributo
+     * nao pode ser atualizado depois que ele é definitdo*/
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
+
+    /*Insertable, se refere na hora da persistencia
+     * esse atributo nao vai ter valor no hora
+     * da inserção no banco de dados*/
+    @UpdateTimestamp
+    @Column(name = "data_ultima_atualizacao", insertable = false)
+    private LocalDateTime dataUltimaAtualizacao;
 }
