@@ -12,11 +12,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemPedidoId implements Serializable {
+    /*Essa classe é uma classe de ChaveComposta no banco de dados,
+     * posteriormente estudar sobre isso*/
 
     @EqualsAndHashCode.Include
     private Integer pedidoId;
 
     @EqualsAndHashCode.Include
-    private Integer produtoID;
+    private Integer produtoId;
 
 }

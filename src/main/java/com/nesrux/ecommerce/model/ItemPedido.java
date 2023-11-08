@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@IdClass(ItemPedidoId.class)
 @Table(name = "item_pedido")
 public class ItemPedido {
     @Id
@@ -22,11 +23,11 @@ public class ItemPedido {
     private Integer produtoId;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", insertable = false, updatable = false)
     private Pedido pedido;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", insertable = false, updatable = false)
     private Produto produto;
 
     @Column(name = "preco_produto")
