@@ -26,8 +26,10 @@ public class ChaveComposataTest extends EntityManagerTest {
         /*maps id*/
 
         ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setPedidoId(pedido.getId());
-        itemPedido.setProdutoId(produto.getId());
+        itemPedido.setId(new ItemPedidoId(pedido.getId(),
+                produto.getId()));
+//        itemPedido.setPedidoId(pedido.getId());
+//        itemPedido.setProdutoId(produto.getId());
         itemPedido.setPedido(pedido);
         itemPedido.setProduto(produto);
         itemPedido.setPrecoProduto(produto.getPreco());
@@ -48,7 +50,6 @@ public class ChaveComposataTest extends EntityManagerTest {
         ItemPedido itemPedido = entityManager.find(ItemPedido.class,
                 new ItemPedidoId(1, 1));
 
-        System.out.println(itemPedido.getPedidoId() + "_____" + itemPedido.getProdutoId());
         Assert.assertNotNull(itemPedido);
     }
 }
