@@ -15,12 +15,13 @@ public class ItemPedido {
     @EmbeddedId
     private ItemPedidoId id;
 
-    @MapsId("pedido_id")
+    //TODO ler sobre a anotação MapsId e como fazer chave composta no hibernate
+    @MapsId("pedidoId")
     @ManyToOne(optional = false)
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @MapsId("produto_id")
+    @MapsId("produtoId")
     @ManyToOne(optional = false)
     @JoinColumn(name = "produto_id")
     private Produto produto;

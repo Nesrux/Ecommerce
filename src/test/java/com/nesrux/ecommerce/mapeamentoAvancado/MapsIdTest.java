@@ -20,7 +20,7 @@ public class MapsIdTest extends EntityManagerTest {
         notaFiscal.setXml("<xml></xml>");
 
         entityManager.getTransaction().begin();
-        entityManager.persist(notaFiscal);
+        entityManager.persist(notaFiscal); //nota fiscal é o owner da relação
         entityManager.getTransaction().commit();
         entityManager.clear();
 
@@ -39,9 +39,10 @@ public class MapsIdTest extends EntityManagerTest {
         pedido.setCliente(cliente);
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO);
-        pedido.setTotal(BigDecimal.TEN);
+        pedido.setTotal(produto.getPreco());
 
         ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setId(new ItemPedidoId());
         itemPedido.setPedido(pedido);
         itemPedido.setProduto(produto);
         itemPedido.setPrecoProduto(produto.getPreco());
@@ -49,13 +50,35 @@ public class MapsIdTest extends EntityManagerTest {
 
         entityManager.getTransaction().begin();
         entityManager.persist(pedido);
+        entityManager.persist(itemPedido);
         entityManager.getTransaction().commit();
-        entityManager.clear();
-
         ItemPedido ItemPedidoVerificacao = entityManager
                 .find(ItemPedido.class,
                         new ItemPedidoId(pedido.getId(), produto.getId()));
         Assert.assertNotNull(ItemPedidoVerificacao);
 
+    }
+
+    @Test
+    public void verificarPagamentoCartao() {
+        Cliente cliente = entityManager.find(Cliente.class, 1);
+        Produto produto = entityManager.find(Produto.class, 1);
+
+        Pedido pedido = new Pedido();
+        pedido.setCliente(cliente);
+        pedido.setDataCriacao(LocalDateTime.now());
+        pedido.setStatus(StatusPedido.AGUARDANDO);
+        pedido.setTotal(BigDecimal.TEN);
+
+        PagamentoCartao pagamentoCartao = new PagamentoCartao();
+        pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
+        pagamentoCartao.setNumero("123456789");
+
+        pagamentoCartao.setPedido(pedido);
+        pedido.setPagamento(pagamentoCartao);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(pagamentoCartao);
+        entityManager.getTransaction().commit();
     }
 }
