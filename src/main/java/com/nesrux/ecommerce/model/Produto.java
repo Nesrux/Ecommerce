@@ -56,4 +56,9 @@ public class Produto {
     @UpdateTimestamp
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
+
+    @ElementCollection
+    @CollectionTable(name = "produto_tag", joinColumns = @JoinColumn(name = "produto_tag"))
+    @Column(name = "tag")
+    private List<String> tags = new ArrayList<>();
 }
