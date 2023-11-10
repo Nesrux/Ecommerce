@@ -17,8 +17,20 @@ public class Cliente {
 
     private String nome;
 
+    /*Essa anotção faz o Jpa ignorar essa propriedade*/
+    @Transient
+    private String primeiroNome;
+
     @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
 
-
+    @PostLoad
+    public void configurarPrimeiro() {
+        if (this.nome != null && !this.nome.isBlank()) {
+            int index = nome.indexOf(" ");
+            if (index > -1) {
+                primeiroNome = nome.substring(0, index);
+            }
+        }
+    }
 }
