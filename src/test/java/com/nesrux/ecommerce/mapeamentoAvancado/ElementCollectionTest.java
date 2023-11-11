@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.mapeamentoAvancado;
 
+import com.nesrux.ecommerce.model.cliente.Cliente;
 import com.nesrux.ecommerce.model.produto.Atributo;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
@@ -44,4 +45,17 @@ public class ElementCollectionTest extends EntityManagerTest {
         Assert.assertFalse(produtoVeridicacao.getAtributos().isEmpty());
     }
 
+    @Test
+    public void verificarMapeamentoMap() {
+        Cliente cliente = entityManager.find(Cliente.class, 1);
+        cliente.getContatos().put("celular", "98874562354");
+
+        entityManager.getTransaction().begin();
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
+        Assert.assertFalse(clienteVerificacao.getContatos().isEmpty());
+
+    }
 }
