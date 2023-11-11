@@ -1,6 +1,5 @@
 package com.nesrux.ecommerce.model.Pedido;
 
-import com.nesrux.ecommerce.model.Pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,7 +21,9 @@ public class NotaFiscal {
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    private String xml;
+    //Lob = large object
+    @Lob
+    private byte[] xml;
 
     @Column(name = "data_emissao")
     private Date dataEmissao;
