@@ -11,19 +11,17 @@ import java.io.IOException;
 
 public class SalvandoArquivosTest extends EntityManagerTest {
 
-    private static byte[] carregarNotaFiscal() {
-        try {
-            return SalvandoArquivosTest.class.getResourceAsStream(
-                    "/nota-fiscal.xml").readAllBytes();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private static byte[] carregarFoto() {
+        return carregarArquivo("/kindle.jpeg");
     }
 
-    private static byte[] carregarFotoProduto() {
+    private static byte[] carregarNotaFiscal() {
+        return carregarArquivo("/nota-fiscal.xml");
+    }
+
+    private static byte[] carregarArquivo(String nome) {
         try {
-            return SalvandoArquivosTest.class.getResourceAsStream(
-                    "/kindle.jpeg").readAllBytes();
+            return SalvandoArquivosTest.class.getResourceAsStream(nome).readAllBytes();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -51,18 +49,16 @@ public class SalvandoArquivosTest extends EntityManagerTest {
 
     @Test
     public void salvarArquivoJpeg() {
-        Produto produto = entityManager.find(Produto.class, 1);
         entityManager.getTransaction().begin();
-
-        produto.setFotoProduto(carregarFotoProduto());
-
+        Produto produto = entityManager.find(Produto.class, 1);
+        produto.setFoto(carregarFoto());
         entityManager.getTransaction().commit();
+
         entityManager.clear();
 
-        Produto produtoValidacao = entityManager.find(produto.getClass(),
-                produto.getId());
-        Assert.assertNotNull(produtoValidacao);
-        Assert.assertTrue(produtoValidacao.getFotoProduto().length > 0);
+        Produto produtoVerificacao = entityManager.find(Produto.class, 1);
+        Assert.assertNotNull(produtoVerificacao.getFoto());
+        Assert.assertTrue(produtoVerificacao.getFoto().length > 0);
     }
 
 }
