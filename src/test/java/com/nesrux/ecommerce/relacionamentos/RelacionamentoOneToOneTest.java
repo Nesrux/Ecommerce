@@ -43,7 +43,6 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
         NotaFiscal notaFiscal = new NotaFiscal();
         notaFiscal.setPedido(pedido);
-        notaFiscal.setXml("<Test> piruleta da silva</test>");
 
         pedido.setNotaFiscal(notaFiscal);
 
