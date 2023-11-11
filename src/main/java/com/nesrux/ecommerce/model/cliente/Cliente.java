@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @Entity
@@ -20,6 +22,14 @@ public class Cliente {
     /*Essa anotção faz o Jpa ignorar essa propriedade*/
     @Transient
     private String primeiroNome;
+
+    //TODO util para o amimais
+    @ElementCollection
+    @CollectionTable(name = "cliente_contato",
+            joinColumns = @JoinColumn(name = "cliente_id"))
+    @MapKeyColumn(name = "tipo")
+    @Column(name = "descricao")
+    private Map<String, String> contatos = new HashMap<>();
 
     @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
