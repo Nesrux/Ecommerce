@@ -2,6 +2,7 @@ package com.nesrux.ecommerce.mapeamentoAvancado;
 
 import com.nesrux.ecommerce.model.Pedido.NotaFiscal;
 import com.nesrux.ecommerce.model.Pedido.Pedido;
+import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;
@@ -14,6 +15,15 @@ public class SalvandoArquivosTest extends EntityManagerTest {
         try {
             return SalvandoArquivosTest.class.getResourceAsStream(
                     "/nota-fiscal.xml").readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static byte[] carregarFotoProduto() {
+        try {
+            return SalvandoArquivosTest.class.getResourceAsStream(
+                    "/kindle.jpeg").readAllBytes();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -37,6 +47,22 @@ public class SalvandoArquivosTest extends EntityManagerTest {
                 notaFiscal.getId());
         Assert.assertNotNull(notaFiscalVerificacao);
         Assert.assertTrue(notaFiscalVerificacao.getXml().length > 0);
+    }
+
+    @Test
+    public void salvarArquivoJpeg() {
+        Produto produto = entityManager.find(Produto.class, 1);
+        entityManager.getTransaction().begin();
+
+        produto.setFotoProduto(carregarFotoProduto());
+
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Produto produtoValidacao = entityManager.find(produto.getClass(),
+                produto.getId());
+        Assert.assertNotNull(produtoValidacao);
+        Assert.assertTrue(produtoValidacao.getFotoProduto().length > 0);
     }
 
 }

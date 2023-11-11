@@ -26,6 +26,10 @@ public class Produto {
     private String descricao;
 
     private BigDecimal preco;
+
+    @Lob
+    private byte[] fotoProduto;
+
     //Explicação
     /*Esse manyToMany e o @jointalbe serve para definir um mapeamento manytoMany
      * entre a classe produto e a classe categoria*/
