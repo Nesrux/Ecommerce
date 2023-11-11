@@ -1,4 +1,4 @@
-package com.nesrux.ecommerce.model;
+package com.nesrux.ecommerce.model.Pedido;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

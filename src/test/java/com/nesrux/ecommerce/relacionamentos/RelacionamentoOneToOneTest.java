@@ -1,6 +1,7 @@
 package com.nesrux.ecommerce.relacionamentos;
 
-import com.nesrux.ecommerce.model.*;
+import com.nesrux.ecommerce.model.Pedido.*;
+import com.nesrux.ecommerce.model.cliente.Cliente;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;

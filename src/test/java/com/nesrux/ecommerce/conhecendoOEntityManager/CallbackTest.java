@@ -1,8 +1,8 @@
 package com.nesrux.ecommerce.conhecendoOEntityManager;
 
-import com.nesrux.ecommerce.model.Cliente;
-import com.nesrux.ecommerce.model.Pedido;
-import com.nesrux.ecommerce.model.StatusPedido;
+import com.nesrux.ecommerce.model.cliente.Cliente;
+import com.nesrux.ecommerce.model.Pedido.Pedido;
+import com.nesrux.ecommerce.model.Pedido.StatusPedido;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;

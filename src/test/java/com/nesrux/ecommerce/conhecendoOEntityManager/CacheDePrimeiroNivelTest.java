@@ -1,6 +1,6 @@
 package com.nesrux.ecommerce.conhecendoOEntityManager;
 
-import com.nesrux.ecommerce.model.Produto;
+import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Test;
 import util.EntityManagerTest;
 

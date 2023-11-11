@@ -1,6 +1,10 @@
 package com.nesrux.ecommerce.mapeamentoBasico;
 
-import com.nesrux.ecommerce.model.*;
+import com.nesrux.ecommerce.model.Pedido.Endereco;
+import com.nesrux.ecommerce.model.Pedido.Pedido;
+import com.nesrux.ecommerce.model.Pedido.StatusPedido;
+import com.nesrux.ecommerce.model.cliente.Cliente;
+import com.nesrux.ecommerce.model.cliente.SexoCliente;
 import org.junit.Test;
 import util.EntityManagerTest;
 

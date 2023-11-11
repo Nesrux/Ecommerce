@@ -1,6 +1,6 @@
 package com.nesrux.ecommerce.util;
 
-import com.nesrux.ecommerce.model.Produto;
+import com.nesrux.ecommerce.model.produto.Produto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

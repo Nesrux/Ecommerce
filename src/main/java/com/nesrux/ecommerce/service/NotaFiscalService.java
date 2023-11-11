@@ -1,6 +1,6 @@
 package com.nesrux.ecommerce.service;
 
-import com.nesrux.ecommerce.model.Pedido;
+import com.nesrux.ecommerce.model.Pedido.Pedido;
 
 public class NotaFiscalService {
 

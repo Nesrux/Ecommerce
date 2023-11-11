@@ -1,6 +1,6 @@
 package com.nesrux.ecommerce.relacionamentos;
 
-import com.nesrux.ecommerce.model.Categoria;
+import com.nesrux.ecommerce.model.produto.Categoria;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;

@@ -1,6 +1,6 @@
 package com.nesrux.ecommerce.listener;
 
-import com.nesrux.ecommerce.model.Pedido;
+import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.service.NotaFiscalService;
 
 import javax.persistence.PrePersist;

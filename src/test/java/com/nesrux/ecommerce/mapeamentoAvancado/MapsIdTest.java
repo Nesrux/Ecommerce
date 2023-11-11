@@ -1,6 +1,8 @@
 package com.nesrux.ecommerce.mapeamentoAvancado;
 
-import com.nesrux.ecommerce.model.*;
+import com.nesrux.ecommerce.model.Pedido.*;
+import com.nesrux.ecommerce.model.cliente.Cliente;
+import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;

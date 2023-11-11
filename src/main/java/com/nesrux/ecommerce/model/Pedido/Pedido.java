@@ -1,6 +1,7 @@
-package com.nesrux.ecommerce.model;
+package com.nesrux.ecommerce.model.Pedido;
 
 import com.nesrux.ecommerce.listener.GerarNotaFiscalListener;
+import com.nesrux.ecommerce.model.cliente.Cliente;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
