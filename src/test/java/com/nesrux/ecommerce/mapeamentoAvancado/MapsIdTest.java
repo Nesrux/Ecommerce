@@ -73,7 +73,7 @@ public class MapsIdTest extends EntityManagerTest {
 
         PagamentoCartao pagamentoCartao = new PagamentoCartao();
         pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
-        pagamentoCartao.setNumero("123456789");
+        pagamentoCartao.setNumeroCartao("123456789");
 
         pagamentoCartao.setPedido(pedido);
         pedido.setPagamento(pagamentoCartao);

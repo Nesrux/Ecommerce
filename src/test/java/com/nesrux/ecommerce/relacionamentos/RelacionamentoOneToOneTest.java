@@ -18,7 +18,7 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
         PagamentoCartao pagamentoCartao = new PagamentoCartao();
         pagamentoCartao.setPedido(pedido);
-        pagamentoCartao.setNumero("123456");
+        pagamentoCartao.setNumeroCartao("123456");
         pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
 
         pedido.setPagamento(pagamentoCartao);
@@ -31,7 +31,7 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
         Pedido pedidoPersistido = entityManager.find(Pedido.class, pedido.getId());
         Assert.assertNotNull(pedidoPersistido.getPagamento());
-        System.out.println(pedidoPersistido.getPagamento().getNumero());
+        System.out.println(pedidoPersistido.getPagamento().getStatus());
     }
 
     @Test
@@ -47,13 +47,11 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
         pedido.setNotaFiscal(notaFiscal);
 
         entityManager.getTransaction().begin();
-        entityManager.persist(pedido);
         entityManager.persist(notaFiscal);
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Pedido pedidoPersistido = entityManager.find(Pedido.class, 1);
+        Pedido pedidoPersistido = entityManager.find(Pedido.class, pedido.getId());
         Assert.assertNotNull(pedidoPersistido.getNotaFiscal());
-        //TODO arrumar isso depois, o assention esta dando erro, pois mechi nos dados
     }
 }
