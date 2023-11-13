@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "pagamento")
-@DiscriminatorColumn(name = "dtaype")
+@DiscriminatorColumn(name = "tipo_pagamento",
+        discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Pagamento extends EntidadeBaseInteger {
 
@@ -26,7 +27,8 @@ public abstract class Pagamento extends EntidadeBaseInteger {
      * para deixar didático, dito isso */
 
     /*O discriminationColumn serve para definir o nome da coluna de descriminação, ou seja a coluna que vai fazer
-     * a diferença, em que tipo de pagamento vai ser execurado, como PagamentoBoleto ou PagamentoCartao*/
+     * a diferença, em que tipo de pagamento vai ser execurado, como PagamentoBoleto ou PagamentoCartao, o padrão seria
+     * dtype*/
 
     /*Inheritance serve para definir a estarégia que vai ser utilizado, nesse exemplo esta tudo numa
      * mesma tabela, mas poderia ser tudo em tabelas diferentes, com valors e dados difetentes*/
