@@ -3,8 +3,6 @@ package com.nesrux.ecommerce.model.Pedido;
 import com.nesrux.ecommerce.listener.GerarNotaFiscalListener;
 import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import com.nesrux.ecommerce.model.cliente.Cliente;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,7 +49,7 @@ public class Pedido extends EntidadeBaseInteger {
     private NotaFiscal notaFiscal;
 
     @OneToOne(mappedBy = "pedido")
-    private PagamentoCartao pagamento;
+    private Pagamento pagamento;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
