@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.model.Pedido;
 
+import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,10 +8,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "nota_fiscal")
-public class NotaFiscal {
+public class NotaFiscal extends EntidadeBaseInteger {
     @Id
     @EqualsAndHashCode.Include
     @Column(name = "pedido_id")

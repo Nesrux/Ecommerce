@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.model.produto;
 
+import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,13 +14,9 @@ import java.util.List;
 
 @Entity
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "produto")
-public class Produto {
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Produto extends EntidadeBaseInteger {
 
     private String nome;
 

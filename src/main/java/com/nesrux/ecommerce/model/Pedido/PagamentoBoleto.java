@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.model.Pedido;
 
+import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,13 +8,10 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "pagamento_boleto")
-public class PagamentoBoleto {
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class PagamentoBoleto extends EntidadeBaseInteger {
+
 
     @Column(name = "pedido_id")
     private Integer pedidoId;

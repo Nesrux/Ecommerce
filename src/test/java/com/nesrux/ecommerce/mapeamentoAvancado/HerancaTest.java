@@ -22,7 +22,7 @@ public class HerancaTest extends EntityManagerTest {
         entityManager.clear();
 
         Cliente clieenteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-        Assert.assertNotNull(clieenteVerificacao);
+        Assert.assertNotNull(clieenteVerificacao.getId());
 
     }
 }

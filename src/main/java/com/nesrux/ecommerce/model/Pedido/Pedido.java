@@ -1,6 +1,7 @@
 package com.nesrux.ecommerce.model.Pedido;
 
 import com.nesrux.ecommerce.listener.GerarNotaFiscalListener;
+import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import com.nesrux.ecommerce.model.cliente.Cliente;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,15 +14,11 @@ import java.util.List;
 
 @Entity
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners(GerarNotaFiscalListener.class)
 @Table(name = "pedido")
-public class Pedido {
+public class Pedido extends EntidadeBaseInteger {
 
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     /*A propriedade optional, se refere a aquele valor pode ou nao pode estar lá, por exemplo
      * quando o hibernate faz a query para instanciar esse Pedido, ele faz joins para todas as propriedades
