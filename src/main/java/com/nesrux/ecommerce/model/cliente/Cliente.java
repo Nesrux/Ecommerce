@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.model.cliente;
 
+import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,12 +9,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente extends EntidadeBaseInteger {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
