@@ -3,13 +3,15 @@ package com.nesrux.ecommerce.model.Pedido;
 import com.nesrux.ecommerce.model.produto.Produto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
 @Entity
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@Setter
 @Table(name = "item_pedido")
 public class ItemPedido  {
 

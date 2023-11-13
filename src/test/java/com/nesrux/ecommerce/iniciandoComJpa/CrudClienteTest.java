@@ -17,7 +17,7 @@ public class CrudClienteTest extends EntityManagerTest {
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Cliente clientePersistido = entityManager.find(Cliente.class, 3);
+        Cliente clientePersistido = entityManager.find(Cliente.class, cliente.getId());
         assertNotNull(cliente);
 
         assertEquals(cliente, clientePersistido);

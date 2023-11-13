@@ -5,6 +5,8 @@ import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import com.nesrux.ecommerce.model.cliente.Cliente;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = true)
 @EntityListeners(GerarNotaFiscalListener.class)
+@Getter
+@Setter
 @Table(name = "pedido")
 public class Pedido extends EntidadeBaseInteger {
 

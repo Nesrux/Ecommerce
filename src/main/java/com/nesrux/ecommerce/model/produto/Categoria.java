@@ -3,13 +3,15 @@ package com.nesrux.ecommerce.model.produto;
 import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Entity
 @Table(name = "categoria")
 public class Categoria extends EntidadeBaseInteger {

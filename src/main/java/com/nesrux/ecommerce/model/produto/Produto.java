@@ -3,6 +3,8 @@ package com.nesrux.ecommerce.model.produto;
 import com.nesrux.ecommerce.model.EntidadeBaseInteger;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Table(name = "produto")
 public class Produto extends EntidadeBaseInteger {
 

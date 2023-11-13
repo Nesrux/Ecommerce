@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Table(name = "pagamento_boleto")
 public class PagamentoBoleto extends EntidadeBaseInteger {
 
-
     @Column(name = "pedido_id")
     private Integer pedidoId;
 

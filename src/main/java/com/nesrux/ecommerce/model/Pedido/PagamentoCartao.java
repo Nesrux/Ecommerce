@@ -2,12 +2,14 @@ package com.nesrux.ecommerce.model.Pedido;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
 @Entity
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@Setter
 @Table(name = "pagamento_cartao")
 public class PagamentoCartao {
     @Id
