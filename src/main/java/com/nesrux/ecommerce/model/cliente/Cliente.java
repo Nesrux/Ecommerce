@@ -4,12 +4,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
 @Table(name = "cliente")
 public class Cliente {
     @Id
@@ -23,6 +25,13 @@ public class Cliente {
     @Transient
     private String primeiroNome;
 
+    @Column(table = "cliente_detalhe")
+    @Enumerated(EnumType.STRING)
+    private SexoCliente sexo;
+
+    @Column(name = "data_nascimento", table = "cliente_detalhe")
+    private LocalDate dataNascimento;
+
     //TODO util para o amimais
     @ElementCollection
     @CollectionTable(name = "cliente_contato",
@@ -31,8 +40,6 @@ public class Cliente {
     @Column(name = "descricao")
     private Map<String, String> contatos = new HashMap<>();
 
-    @Enumerated(EnumType.STRING)
-    private SexoCliente sexo;
 
     @PostLoad
     public void configurarPrimeiro() {
