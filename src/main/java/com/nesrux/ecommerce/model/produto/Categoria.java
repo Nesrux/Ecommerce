@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "categoria")
+@Table(name = "categoria", uniqueConstraints = @UniqueConstraint(name = "unq_nome", columnNames = "nome"))
 public class Categoria extends EntidadeBaseInteger {
     @Id
     @EqualsAndHashCode.Include

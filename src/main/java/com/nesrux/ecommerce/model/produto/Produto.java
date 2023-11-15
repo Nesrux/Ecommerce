@@ -1,8 +1,6 @@
 package com.nesrux.ecommerce.model.produto;
 
 import com.nesrux.ecommerce.model.EntidadeBaseInteger;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,7 +15,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "produto")
+@Table(name = "produto", uniqueConstraints = {@UniqueConstraint(name = "unq_nome", columnNames = "nome")},
+        indexes = @Index(name="idx_nome", columnList = "nome") )
 public class Produto extends EntidadeBaseInteger {
 
     private String nome;
