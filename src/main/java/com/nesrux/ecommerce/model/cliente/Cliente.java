@@ -17,14 +17,17 @@ import java.util.Map;
         indexes = {@Index(name = "idx_nome", columnList = "nome")})
 public class Cliente extends EntidadeBaseInteger {
 
+    @Column(length = 100, nullable = false)
     private String nome;
 
     /*Essa anotção faz o Jpa ignorar essa propriedade*/
     @Transient
     private String primeiroNome;
+
+    @Column(length = 14, nullable = false)
     private String Cpf;
 
-    @Column(table = "cliente_detalhe")
+    @Column(table = "cliente_detalhe", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
 

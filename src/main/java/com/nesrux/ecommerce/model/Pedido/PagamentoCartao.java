@@ -14,7 +14,7 @@ import javax.persistence.Entity;
 //@Table(name =  "pagamento_cartao")
 public class PagamentoCartao extends Pagamento {
 
-    @Column(name = "numero_cartao")
+    @Column(name = "numero_cartao", nullable = false,  length = 50)
     private String numeroCartao;
 
     /*DescriminationValue, serve para definir oque o JPa vai deixar na coluna

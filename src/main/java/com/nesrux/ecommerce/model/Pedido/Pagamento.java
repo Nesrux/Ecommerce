@@ -20,6 +20,7 @@ public abstract class Pagamento extends EntidadeBaseInteger {
     private Pedido pedido;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
     private StatusPagamento status;
 
     /*o JPa sa pré-seta isso que esta definido explicitamente, como DiscriminatorColumn e Inheritance, só esta ai
