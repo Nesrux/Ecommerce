@@ -31,6 +31,7 @@ public class Pedido extends EntidadeBaseInteger {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @Column(nullable = false)
     private BigDecimal total;
 
     @OneToMany(mappedBy = "pedido")
@@ -52,12 +53,13 @@ public class Pedido extends EntidadeBaseInteger {
     private Pagamento pagamento;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 30, nullable = false)
     private StatusPedido status;
 
     @Embedded
     private Endereco enderecoEntrega;
 
-    public boolean isPago(){
+    public boolean isPago() {
         return StatusPedido.PAGO.equals(status);
     }
 
