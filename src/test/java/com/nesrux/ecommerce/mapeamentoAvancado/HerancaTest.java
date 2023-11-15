@@ -18,6 +18,7 @@ public class HerancaTest extends EntityManagerTest {
     public void salvarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome("João");
+        cliente.setCpf("123456789");
         cliente.setSexo(SexoCliente.MASCULINO);
         cliente.setDataNascimento(LocalDate.of(2001, 3, 5));
 

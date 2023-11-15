@@ -1,6 +1,7 @@
 package com.nesrux.ecommerce.iniciandoComJpa;
 
 import com.nesrux.ecommerce.model.cliente.Cliente;
+import com.nesrux.ecommerce.model.cliente.SexoCliente;
 import org.junit.Test;
 import util.EntityManagerTest;
 
@@ -12,6 +13,9 @@ public class CrudClienteTest extends EntityManagerTest {
     public void CriarUsuario() {
         Cliente cliente = new Cliente();
         cliente.setNome("Marcelo amorin");
+        cliente.setCpf("123456789");
+        cliente.setSexo(SexoCliente.MASCULINO);
+
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
         entityManager.getTransaction().commit();

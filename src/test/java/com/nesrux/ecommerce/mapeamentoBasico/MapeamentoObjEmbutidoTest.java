@@ -18,13 +18,14 @@ public class MapeamentoObjEmbutidoTest extends EntityManagerTest {
     public void analisarObjEmbutido() {
         Cliente cliente = new Cliente();
         cliente.setNome("Cliente Teste mapeamentoEmbutido");
+        cliente.setCpf("123546789");
         cliente.setSexo(SexoCliente.FEMININO);
 
         Endereco endereco = new Endereco();
         endereco.setBairro("Santa Etelvina");
         endereco.setCep("08487-130");
         endereco.setNumero("65");
-        endereco.setComplemento("Do lado de uma arvore de jambu");
+        endereco.setComplemento("Do lado deu arvore de jambu");
         endereco.setCidade("São paulo");
 
         Pedido pedido = new Pedido();

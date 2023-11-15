@@ -19,6 +19,7 @@ public class MapsIdTest extends EntityManagerTest {
         NotaFiscal notaFiscal = new NotaFiscal();
         notaFiscal.setPedido(pedido);
         notaFiscal.setDataEmissao(new Date());
+        notaFiscal.setXml("125489 456786 15 32489 123 3248".getBytes());
 
         entityManager.getTransaction().begin();
         entityManager.persist(notaFiscal); //nota fiscal é o owner da relação

@@ -8,6 +8,7 @@ import org.junit.Test;
 import util.EntityManagerTest;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class SalvandoArquivosTest extends EntityManagerTest {
 
@@ -32,6 +33,7 @@ public class SalvandoArquivosTest extends EntityManagerTest {
         Pedido pedido = entityManager.find(Pedido.class, 1);
         NotaFiscal notaFiscal = new NotaFiscal();
         notaFiscal.setPedido(pedido);
+        notaFiscal.setDataEmissao(new Date(2000, 5 , 7));
         notaFiscal.setXml(carregarNotaFiscal());
 
         entityManager.getTransaction().begin();
