@@ -1,8 +1,6 @@
 package com.nesrux.ecommerce.model.cliente;
 
 import com.nesrux.ecommerce.model.EntidadeBaseInteger;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +13,8 @@ import java.util.Map;
 @Setter
 @Entity
 @SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
-@Table(name = "cliente")
+@Table(name = "cliente", uniqueConstraints = {@UniqueConstraint(name = "unq_cpf", columnNames = {"cpf"})},
+        indexes = {@Index(name = "idx_nome", columnList = "nome")})
 public class Cliente extends EntidadeBaseInteger {
 
     private String nome;
@@ -23,6 +22,7 @@ public class Cliente extends EntidadeBaseInteger {
     /*Essa anotção faz o Jpa ignorar essa propriedade*/
     @Transient
     private String primeiroNome;
+    private String Cpf;
 
     @Column(table = "cliente_detalhe")
     @Enumerated(EnumType.STRING)
