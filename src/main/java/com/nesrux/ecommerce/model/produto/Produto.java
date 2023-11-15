@@ -16,16 +16,16 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "produto", uniqueConstraints = {@UniqueConstraint(name = "unq_nome", columnNames = "nome")},
-        indexes = @Index(name="idx_nome", columnList = "nome") )
+        indexes = @Index(name = "idx_nome", columnList = "nome"))
 public class Produto extends EntidadeBaseInteger {
 
-    @Column(length = 100, nullable = false )
+    @Column(length = 100, nullable = false)
     private String nome;
 
     @Column(columnDefinition = "varchar(262) not null default 'descricao'")
     private String descricao;
 
-    @Column(precision = 10, scale = 2) //preco decimal(10, 2) 10 digitos com 2 casas decimais
+    // @Column(precision = 10, scale = 2) //preco decimal(10, 2) 10 digitos com 2 casas decimais
     private BigDecimal preco;
 
     @Lob
@@ -52,7 +52,7 @@ public class Produto extends EntidadeBaseInteger {
     /*O atributo updateble, se refere que esse atributo
      * nao pode ser atualizado depois que ele é definitdo*/
     @CreationTimestamp
-    @Column(name = "data_criacao", updatable = false)
+    @Column(name = "data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
     /*Insertable, se refere na hora da persistencia
@@ -64,7 +64,7 @@ public class Produto extends EntidadeBaseInteger {
 
     @ElementCollection
     @CollectionTable(name = "produto_tag", joinColumns = @JoinColumn(name = "produto_tag"))
-    @Column(name = "tag")
+    @Column(name = "tag", nullable = false, length = 50)
     private List<String> tags = new ArrayList<>();
 
     @ElementCollection
