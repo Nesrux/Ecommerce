@@ -7,6 +7,8 @@ import org.junit.Test;
 import util.EntityManagerTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class RelacionamentoOneToOneTest extends EntityManagerTest {
     @Test
@@ -43,6 +45,8 @@ public class RelacionamentoOneToOneTest extends EntityManagerTest {
 
         NotaFiscal notaFiscal = new NotaFiscal();
         notaFiscal.setPedido(pedido);
+        notaFiscal.setXml("Esse é p famoso 16 toneladas turu turu turu".getBytes());
+        notaFiscal.setDataEmissao(new Date(2022, 5, 7));
 
         pedido.setNotaFiscal(notaFiscal);
 

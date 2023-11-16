@@ -26,7 +26,7 @@ public class MapeamentoObjEmbutidoTest extends EntityManagerTest {
         endereco.setCep("08487-130");
         endereco.setNumero("65");
         endereco.setComplemento("Do lado deu arvore de jambu");
-        endereco.setCidade("São paulo");
+        endereco.setCidade("Sp");
 
         Pedido pedido = new Pedido();
         pedido.setDataCriacao(LocalDateTime.now());

@@ -11,9 +11,11 @@ import java.math.BigDecimal;
 public class ListenersTest extends EntityManagerTest {
     @Test
     public void testaarListenersDoJpa() {
+        Cliente cliente  = entityManager.find(Cliente.class, 1);
         Pedido pedido = new Pedido();
-        pedido.setCliente(entityManager.find(Cliente.class, 1));
+        pedido.setCliente(cliente);
         pedido.setTotal(BigDecimal.TEN);
+        pedido.setStatus(StatusPedido.AGUARDANDO);
 
         entityManager.getTransaction().begin();
 

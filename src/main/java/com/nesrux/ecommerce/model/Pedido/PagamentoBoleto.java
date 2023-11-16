@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ import javax.persistence.Table;
 //@Table(name = "pagamento_boleto")
 public class PagamentoBoleto extends Pagamento {
 
-    @Column(name = "codigo_barras", length = 100, nullable = false)
+    @Column(name = "codigo_barras", length = 100)
     private String codigoBarras;
     /*DescriminationValue, serve para definir oque o JPa vai deixar na coluna
      * dtype (padrão), por padrão o valor de desciminação é o nome da classe, mas
