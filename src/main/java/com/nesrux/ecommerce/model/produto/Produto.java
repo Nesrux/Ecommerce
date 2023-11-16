@@ -42,8 +42,8 @@ public class Produto extends EntidadeBaseInteger {
      * dessa tabela, que no caso é o ID de categoria*/
     @ManyToMany
     @JoinTable(name = "produto_categoria",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+            joinColumns = @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id", foreignKey = @ForeignKey(name = "fk_produto_categoria_categoria")))
     private List<Categoria> categorias = new ArrayList<>();
 
     @OneToOne(mappedBy = "produto")
@@ -63,12 +63,14 @@ public class Produto extends EntidadeBaseInteger {
     private LocalDateTime dataUltimaAtualizacao;
 
     @ElementCollection
-    @CollectionTable(name = "produto_tag", joinColumns = @JoinColumn(name = "produto_tag"))
+    @CollectionTable(name = "produto_tag", joinColumns = @JoinColumn(name = "produto_tag",
+            foreignKey = @ForeignKey(name = "fk_produto_tag_produto")))
     @Column(name = "tag", nullable = false, length = 50)
     private List<String> tags = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "produto_atributo",
-            joinColumns = @JoinColumn(name = "produto_id"))
+            joinColumns = @JoinColumn(name = "produto_id",
+                    foreignKey = @ForeignKey(name = "fk_produto_atributo_produto")))
     private List<Atributo> atributos = new ArrayList<>();
 }

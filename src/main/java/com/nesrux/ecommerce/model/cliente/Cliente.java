@@ -12,7 +12,8 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
-@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
+@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id",
+        foreignKey = @ForeignKey(name = "fk_cliente_detalhe_cliente")))
 @Table(name = "cliente", uniqueConstraints = {@UniqueConstraint(name = "unq_cpf", columnNames = {"cpf"})},
         indexes = {@Index(name = "idx_nome", columnList = "nome")})
 public class Cliente extends EntidadeBaseInteger {
@@ -37,7 +38,7 @@ public class Cliente extends EntidadeBaseInteger {
     //TODO util para o amimais
     @ElementCollection
     @CollectionTable(name = "cliente_contato",
-            joinColumns = @JoinColumn(name = "cliente_id"))
+            joinColumns = @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_cliente_contato_cliente")))
     @MapKeyColumn(name = "tipo")
     @Column(name = "descricao")
     private Map<String, String> contatos = new HashMap<>();

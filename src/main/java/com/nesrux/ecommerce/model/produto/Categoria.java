@@ -26,7 +26,7 @@ public class Categoria extends EntidadeBaseInteger {
     /*Auto relacionamento*/
     /*Many to one é o owner*/
     @ManyToOne
-    @JoinColumn(name = "categoria_pai_id")
+    @JoinColumn(name = "categoria_pai_id", foreignKey = @ForeignKey(name = "fk_categoria_categoria_pai"))
     private Categoria categoriaPai;
 
     @OneToMany(mappedBy = "categoriaPai")
