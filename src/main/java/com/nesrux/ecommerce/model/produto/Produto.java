@@ -22,7 +22,7 @@ public class Produto extends EntidadeBaseInteger {
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @Column(columnDefinition = "varchar(262) not null default 'descricao'")
+    @Lob
     private String descricao;
 
     // @Column(precision = 10, scale = 2) //preco decimal(10, 2) 10 digitos com 2 casas decimais
