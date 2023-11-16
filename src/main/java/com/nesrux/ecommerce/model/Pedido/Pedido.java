@@ -28,7 +28,8 @@ public class Pedido extends EntidadeBaseInteger {
     /*Com essa propriedade marcada como false, ou seja todos os pedidos obrigatoriamente tem um cliente, ele faz um
      * inner join direto, ou seja só carrega a intersecção dos valores, que é mais performatico pois carrega menos dados*/
     @ManyToOne(optional = false)
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
     @Column(nullable = false)
