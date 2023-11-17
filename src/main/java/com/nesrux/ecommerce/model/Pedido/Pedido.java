@@ -35,7 +35,14 @@ public class Pedido extends EntidadeBaseInteger {
     @Column(nullable = false)
     private BigDecimal total;
 
-    @OneToMany(mappedBy = "pedido")
+    /*Os métodos em cascata servem para salvar instancias no banco de
+    * dados apenas com uma querry, nesse caso(sem a propriedade cascade)
+    * se eu quisse salvar um Pedido e um itemPedido, eu teria que primeiro
+    * salvar o Pedido, depois salvar o ItemPedido*/
+    //com a propriedade cascade.Persist quando o Jpa salvar um pedido, ele
+    //vai salvar todos os Itens do pedido
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
     private List<ItemPedido> itens = new ArrayList<>();
 
     @Column(name = "data_criacao", updatable = false, nullable = false)
