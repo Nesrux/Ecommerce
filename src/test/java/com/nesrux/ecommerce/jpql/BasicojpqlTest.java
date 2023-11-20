@@ -2,16 +2,12 @@ package com.nesrux.ecommerce.jpql;
 
 import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.cliente.Cliente;
-import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-import java.sql.ClientInfoStatus;
 import java.util.List;
 
 public class BasicojpqlTest extends EntityManagerTest {
@@ -44,7 +40,7 @@ public class BasicojpqlTest extends EntityManagerTest {
     }
 
     @Test
-    public void selecionarUmAtributo(){
+    public void selecionarUmAtributo() {
         String jpql = "select p.nome from Produto p";
         TypedQuery<String> typedQuery = entityManager.createQuery(jpql, String.class);
         List<String> nomes = typedQuery.getResultList();
@@ -56,13 +52,14 @@ public class BasicojpqlTest extends EntityManagerTest {
 
         Assert.assertEquals(Cliente.class, clientesList.get(0).getClass());
     }
+
     @Test
-    public void projetarResultado(){
+    public void projetarResultado() {
         String jpql = "select id, nome from Produto p";
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 
         List<Object[]> resultados = typedQuery.getResultList();
         Assert.assertTrue(resultados.get(0).length == 2);
-        resultados.forEach(System.out::println);
+        resultados.forEach(a -> System.out.println(a[0] + "__" + a[1]));
     }
 }
