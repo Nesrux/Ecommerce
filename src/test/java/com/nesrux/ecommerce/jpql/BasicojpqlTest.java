@@ -9,7 +9,9 @@ import util.EntityManagerTest;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
+import java.sql.ClientInfoStatus;
 import java.util.List;
 
 public class BasicojpqlTest extends EntityManagerTest {
@@ -53,5 +55,14 @@ public class BasicojpqlTest extends EntityManagerTest {
         List<Cliente> clientesList = clientesTypados.getResultList();
 
         Assert.assertEquals(Cliente.class, clientesList.get(0).getClass());
+    }
+    @Test
+    public void projetarResultado(){
+        String jpql = "select id, nome from Produto p";
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> resultados = typedQuery.getResultList();
+        Assert.assertTrue(resultados.get(0).length == 2);
+        resultados.forEach(System.out::println);
     }
 }
