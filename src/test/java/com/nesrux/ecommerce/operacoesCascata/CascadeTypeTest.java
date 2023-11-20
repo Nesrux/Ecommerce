@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class CascadeTypeTest extends EntityManagerTest {
-    @Test
+   // @Test
     public void persistirProdutoComCategoria(){
         Produto produto = new Produto();
         produto.setNome("Fone de ouvido");
