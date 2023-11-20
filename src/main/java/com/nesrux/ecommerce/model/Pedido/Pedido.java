@@ -32,6 +32,7 @@ public class Pedido extends EntidadeBaseInteger {
             foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
+
     @Column(nullable = false)
     private BigDecimal total;
 
