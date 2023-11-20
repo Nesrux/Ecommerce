@@ -6,6 +6,7 @@ import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.Pedido.StatusPedido;
 import com.nesrux.ecommerce.model.cliente.Cliente;
 import com.nesrux.ecommerce.model.cliente.SexoCliente;
+import com.nesrux.ecommerce.model.produto.Categoria;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,6 +16,27 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class CascadeTypeTest extends EntityManagerTest {
+    @Test
+    public void persistirProdutoComCategoria(){
+        Produto produto = new Produto();
+        produto.setNome("Fone de ouvido");
+        produto.setPreco(BigDecimal.TEN);
+        produto.setDescricao("Um fone foda da JBL imagina aí");
+
+        Categoria categoria = new Categoria();
+        categoria.setNome("Eletronicos");
+
+        produto.getCategorias().add(categoria);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Categoria categoriaTest = entityManager.find(Categoria.class, categoria.getId());
+        Assert.assertNotNull(categoriaTest);
+    }
+
     @Test
     public void persistirComItens() {
         Cliente cliente = entityManager.find(Cliente.class, 1);

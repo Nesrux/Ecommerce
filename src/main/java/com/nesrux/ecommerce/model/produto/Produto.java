@@ -40,7 +40,7 @@ public class Produto extends EntidadeBaseInteger {
      * recebe a anotação joincolumn, se refere ao owner da tabela, o "dono dela", que nesse caso é a clasee produto
      * que esta sendo referenciado pelo produto_id, e por sua vez o InverseJoincolumn se refere a quem é o "secundario"
      * dessa tabela, que no caso é o ID de categoria*/
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "produto_categoria",
             joinColumns = @JoinColumn(name = "produto_id",
                     foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")),
