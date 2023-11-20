@@ -37,13 +37,13 @@ public class Pedido extends EntidadeBaseInteger {
     private BigDecimal total;
 
     /*Os métodos em cascata servem para salvar instancias no banco de
-    * dados apenas com uma querry, nesse caso(sem a propriedade cascade)
-    * se eu quisse salvar um Pedido e um itemPedido, eu teria que primeiro
-    * salvar o Pedido, depois salvar o ItemPedido*/
+     * dados apenas com uma querry, nesse caso(sem a propriedade cascade)
+     * se eu quisse salvar um Pedido e um itemPedido, eu teria que primeiro
+     * salvar o Pedido, depois salvar o ItemPedido*/
     //com a propriedade cascade.Persist quando o Jpa salvar um pedido, ele
     //vai salvar todos os Itens do pedido
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens = new ArrayList<>();
 
     @Column(name = "data_criacao", updatable = false, nullable = false)
@@ -90,10 +90,14 @@ public class Pedido extends EntidadeBaseInteger {
     }
 
     public void calcularValorTotal() {
-        this.total = itens.stream()
-                .map(item -> item.getPrecoProduto()
-                        .multiply(BigDecimal.valueOf(item.getQuantidade())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        //Vivendo e aprendendo!
+        if (itens != null) {
+            this.total = itens.stream()
+                    .map(item -> item.getPrecoProduto()
+                            .multiply(BigDecimal.valueOf(item.getQuantidade())))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            //Vivendo e aprendendo!
+        } else {
+            total = BigDecimal.ZERO;
+        }
     }
 }
