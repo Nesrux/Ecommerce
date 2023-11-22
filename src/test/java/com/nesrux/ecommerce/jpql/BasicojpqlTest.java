@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.jpql;
 
+import com.nesrux.ecommerce.dto.ProdutoDto;
 import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.cliente.Cliente;
 import org.junit.Assert;
@@ -61,5 +62,15 @@ public class BasicojpqlTest extends EntityManagerTest {
         List<Object[]> resultados = typedQuery.getResultList();
         Assert.assertTrue(resultados.get(0).length == 2);
         resultados.forEach(a -> System.out.println(a[0] + "__" + a[1]));
+    }
+
+    @Test
+    public void projetarResultadoComDTi() {
+        String jpql = "select new com.nesrux.ecommerce.dto.ProdutoDto(id, nome) from Produto";
+        TypedQuery<ProdutoDto> typedQuery = entityManager.createQuery(jpql, ProdutoDto.class);
+        List<ProdutoDto> produtoDtos = typedQuery.getResultList();
+
+        Assert.assertFalse(produtoDtos.isEmpty());
+        produtoDtos.forEach(p -> System.out.println("nome : " + p.getNome() + " Id : " + p.getId()));
     }
 }
