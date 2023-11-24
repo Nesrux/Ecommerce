@@ -10,15 +10,24 @@ import java.util.List;
 
 public class PathExpressionsTest extends EntityManagerTest {
     @Test
-    public void usarPathExpression(){
-        String  jpql = "select p from Pedido p where p.cliente.nome = 'NOME QUALQUER'";
+    public void usarPathExpression() {
+        String jpql = "select p from Pedido p where p.cliente.nome = 'NOME QUALQUER'";
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
         List<Pedido> pedidos = typedQuery.getResultList();
 
         Assert.assertTrue(pedidos.isEmpty());
 
-        /*path expressions é o caminho das classes até onde desejado por exemolo
-        * eu quero um pedidp que tenha um cliente e esse cliente tem o nome 'NOME qualquer'
-        * entao pedido.cliente.nome*/
+        /* path expressions é o caminho das classes até onde desejado por exemolo
+         * eu quero um pedido que tenha um cliente e esse cliente tem o nome 'NOME qualquer'
+         * entao pedido.cliente.nome */
+    }
+
+    @Test
+    public void buscarPedidosComProdutosEspecificos() {
+        String jpql = "select p from Pedido p join p.itens i where i.pedido.id = 1";
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        List<Pedido> pedidos = typedQuery.getResultList();
+
+        Assert.assertFalse(pedidos.isEmpty());
     }
 }
