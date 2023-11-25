@@ -7,12 +7,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;
 
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class EspressoesCondicionaisTest extends EntityManagerTest {
@@ -54,6 +51,31 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
         List<?> lista = typedQuery.getResultList();
         Assert.assertFalse(lista.isEmpty());
     }
+
+    @Test
+    public void usarBetween() {
+        String jpql = "select p from Produto p where p.preco between :precoInicial and :precoFinal";
+
+        TypedQuery<?> typedQuery = entityManager.createQuery(jpql, Object.class);
+        typedQuery.setParameter("precoInicial", new BigDecimal("499"));
+        typedQuery.setParameter("precoFinal", new BigDecimal("1400"));
+
+        List<?> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void usarBetweenComData() {
+        String jpql = "select p from Pedido p where p.dataCriacao between :dataInical and :dataFinal";
+
+        TypedQuery<?> typedQuery = entityManager.createQuery(jpql, Object.class);
+        typedQuery.setParameter("dataInical", LocalDateTime.now().minusDays(2));
+        typedQuery.setParameter("dataFinal", LocalDateTime.now());
+
+        List<?> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
 
     @Test
     public void desafioTestData() {
