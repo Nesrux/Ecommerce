@@ -1,13 +1,18 @@
 package com.nesrux.ecommerce.jpql;
 
+import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.cliente.Cliente;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;
 
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class EspressoesCondicionaisTest extends EntityManagerTest {
@@ -48,6 +53,16 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
 
         List<?> lista = typedQuery.getResultList();
         Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void desafioTestData() {
+        String jpql = "select p from Pedido p where p.dataCriacao > :data";
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        typedQuery.setParameter("data", LocalDateTime.now().minusDays(3));
+        List<Pedido> pedidos = typedQuery.getResultList();
+
+        Assert.assertFalse(pedidos.isEmpty());
     }
 
 }
