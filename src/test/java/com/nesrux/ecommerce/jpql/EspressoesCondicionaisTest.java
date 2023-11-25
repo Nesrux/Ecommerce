@@ -7,6 +7,7 @@ import org.junit.Test;
 import util.EntityManagerTest;
 
 import javax.persistence.TypedQuery;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class EspressoesCondicionaisTest extends EntityManagerTest {
@@ -34,6 +35,17 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
     public void usarIsEmpty() {
         String jpql = "select p from Produto p where p.categorias is empty";
         TypedQuery<?> typedQuery = entityManager.createQuery(jpql, Object.class);
+        List<?> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void usarmaiorMenor() {
+        String jpql = "select p from Produto p where p.preco > :preco";
+
+        TypedQuery<?> typedQuery = entityManager.createQuery(jpql, Object.class);
+        typedQuery.setParameter("preco", new BigDecimal("499"));
+
         List<?> lista = typedQuery.getResultList();
         Assert.assertFalse(lista.isEmpty());
     }
