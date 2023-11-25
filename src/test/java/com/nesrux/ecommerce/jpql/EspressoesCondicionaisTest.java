@@ -87,4 +87,14 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
         Assert.assertFalse(pedidos.isEmpty());
     }
 
+    @Test
+    public void usarExpressaoDiferente(){
+        // o operador <> é igual ao operador !=
+        String jpql = "select p from Pedido p where p.id <> 1";
+        TypedQuery<?> typedQuery = entityManager.createQuery(jpql, Object.class);
+
+        List<?> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
 }
