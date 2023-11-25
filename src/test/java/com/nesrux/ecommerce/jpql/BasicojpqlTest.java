@@ -20,6 +20,15 @@ public class BasicojpqlTest extends EntityManagerTest {
     //SQL select * from pedido  where id = ?
 
     @Test
+    public void ordenarResultados() {
+        String jpql = "select c from Cliente c order by c.nome desc";
+        TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+        List<Cliente> list = typedQuery.getResultList();
+        Assert.assertFalse(list.isEmpty());
+        list.forEach(c -> System.out.println(c.getNome() + ", " + c.getId()));
+    }
+
+    @Test
     public void buscarIdentificador() {
         TypedQuery<Pedido> pedidoQuery = entityManager
                 .createQuery("select p from Pedido p where p.id=1", Pedido.class);
