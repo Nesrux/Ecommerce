@@ -10,6 +10,25 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class FuncoesTest extends EntityManagerTest {
+
+    @Test
+    public void aplicarfuncoesAgregacao() {
+        //avg count, min, max, sum,
+        //String jpql = "select avg(p.total) from Pedido p";
+        //String jpql = "select sum(p.total) from Pedido p";
+        //String jpql = "select min(p.total) from Pedido p";
+        //String jpql = "select max(p.total) from Pedido p";
+        String jpql = "select count(p.total) from Pedido p";
+
+        TypedQuery<Number> typedQuery = entityManager.createQuery(jpql, Number.class);
+
+        List<Number> lista = typedQuery.getResultList();
+
+        Assert.assertFalse(lista.isEmpty());
+        lista.forEach(size -> System.out.println("valor é: " + size));
+    }
+
+
     @Test
     public void aplicarfuncoescolecoes() {
         String jpql = "select size(p.itens) from Pedido p where size(p.itens) > 1";
@@ -21,6 +40,7 @@ public class FuncoesTest extends EntityManagerTest {
         Assert.assertFalse(lista.isEmpty());
         lista.forEach(size -> System.out.println("size: " + size));
     }
+
     @Test
     public void aplicarFuncaoString() {
         //String jpql = "Select c.nome, concat('Categoria:', c.nome) from Categoria c";
@@ -46,6 +66,7 @@ public class FuncoesTest extends EntityManagerTest {
 
         Assert.assertFalse(lista.isEmpty());
     }
+
     @Test
     public void aplicarFuncaoColecao() {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
@@ -63,6 +84,7 @@ public class FuncoesTest extends EntityManagerTest {
         Assert.assertFalse(lista.isEmpty());
         lista.forEach(arr -> System.out.println(arr[0] + " - " + arr[1] + " - " + arr[2]));
     }
+
     @Test
     public void aplicarFuncaoComNumeros() {
         String jpql = "select abs(-10), mod(3,2), sqrt(9) from Pedido";
