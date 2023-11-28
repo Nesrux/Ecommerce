@@ -10,6 +10,7 @@ import util.EntityManagerTest;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class EspressoesCondicionaisTest extends EntityManagerTest {
@@ -88,7 +89,7 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
     }
 
     @Test
-    public void usarExpressaoDiferente(){
+    public void usarExpressaoDiferente() {
         // o operador <> é igual ao operador !=
         String jpql = "select p from Pedido p where p.id <> 1";
         TypedQuery<?> typedQuery = entityManager.createQuery(jpql, Object.class);
@@ -102,9 +103,9 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
         //Total de vendas dentre as categorias que mais  vendem
         String jpql = "select p.id," +
                 "case p.status " +
-                    "when 'PAGO' then 'Está pago' " +
-                    "when 'CANCELADO' then  'FOI cancelado'" +
-                    "else 'Está aguardando' " +
+                "when 'PAGO' then 'Está pago' " +
+                "when 'CANCELADO' then  'FOI cancelado'" +
+                "else 'Está aguardando' " +
                 "end " +
                 " from Pedido p";
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
@@ -132,6 +133,20 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
 
         Assert.assertFalse(lista.isEmpty());
         lista.forEach(arr -> System.out.println(arr[0] + "-" + arr[1]));
+    }
+
+    @Test
+    public void usarExpressaoIn() {
+
+        List<Integer> parametros = Arrays.asList(1, 3, 4);
+        //Total de vendas dentre as categorias que mais  vendem
+        String jpql = "select p from Pedido p where p.id in (:lista)";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        typedQuery.setParameter("lista", parametros);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
 
     }
 
