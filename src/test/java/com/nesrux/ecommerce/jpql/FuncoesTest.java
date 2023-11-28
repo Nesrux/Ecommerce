@@ -12,6 +12,19 @@ import java.util.TimeZone;
 public class FuncoesTest extends EntityManagerTest {
 
     @Test
+    public void aplicarAgrupamentos() {
+        String jpql = "selec p.nome, p. from Pedido p group by";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+
+        Assert.assertFalse(lista.isEmpty());
+        lista.forEach(arr -> System.out.println(arr[0] + "-" + arr[1]));
+    }
+
+
+    @Test
     public void aplicarfuncoesAgregacao() {
         //avg count, min, max, sum,
         //String jpql = "select avg(p.total) from Pedido p";
