@@ -137,7 +137,6 @@ public class EspressoesCondicionaisTest extends EntityManagerTest {
 
     @Test
     public void usarExpressaoIn() {
-
         List<Integer> parametros = Arrays.asList(1, 3, 4);
         //Total de vendas dentre as categorias que mais  vendem
         String jpql = "select p from Pedido p where p.id in (:lista)";
