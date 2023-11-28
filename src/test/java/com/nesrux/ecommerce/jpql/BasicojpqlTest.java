@@ -82,4 +82,15 @@ public class BasicojpqlTest extends EntityManagerTest {
         Assert.assertFalse(produtoDtos.isEmpty());
         produtoDtos.forEach(p -> System.out.println("nome : " + p.getNome() + " Id : " + p.getId()));
     }
+
+    @Test
+    public void usarDistinct() {
+        String jpql = "select distinct p from Pedido p join p.itens i join i.produto pro" +
+                " where pro.id in(1, 2, 3, 4)";
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+        System.out.println(lista.size());
+    }
 }
