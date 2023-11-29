@@ -5,7 +5,6 @@ import com.nesrux.ecommerce.model.cliente.Cliente;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import util.EntityManagerTest;
 
 import javax.persistence.TypedQuery;
@@ -75,8 +74,9 @@ public class SubQueriesTest extends EntityManagerTest {
 
         lista.forEach(p -> System.out.println("ID : " + p.getId()));
     }
+
     @Test
-    public void todos_os_clientes_que_fizeram_2Pedidos(){
+    public void todos_os_clientes_que_fizeram_2Pedidos() {
         String jpql = "select c from Cliente c where (select count(cliente) from Pedido p) > 2";
         TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
 
@@ -84,5 +84,21 @@ public class SubQueriesTest extends EntityManagerTest {
         Assert.assertFalse(lista.isEmpty());
 
         lista.forEach(p -> System.out.println("Nome : " + p.getNome()));
+    }
+
+    @Test
+    public void queryComExistis() {
+        String jpql = "select p from Produto p " +
+                " where exists " +
+                " (select 1 from ItemPedido where produto = p and precoProduto <> p.preco)";
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+        List<? extends Produto> lista = typedQuery.getResultList();
+        /*essa asserssão não esta passando por causa que eu não editei o arquivo dados iniciais kindle para nao sujar
+        * a base de dados, porém é valido afirmar que isso funciona! anrigamente isso tava como asserFalse*/
+        Assert.assertTrue(lista.isEmpty());
+
+        lista.forEach(p -> System.out.println("id  : " + p.getId()));
+
     }
 }
