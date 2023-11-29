@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.jpql;
 
+import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.cliente.Cliente;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,5 +32,18 @@ public class SubQueriesTest extends EntityManagerTest {
 //        lista.forEach(p -> System.out.println(p.getId() + ", " + p.getCliente().getNome()
 //        + p.getTotal()));
         lista.forEach(c -> System.out.println(c.getNome() + ", " + c.getId()));
+    }
+
+    @Test
+    public void pesquisaSubqueriesComIn() {
+        String jpql = "select p from Pedido p where p.id in " +
+                "(select p2.id from ItemPedido i2 join i2.pedido p2 " +
+                "join i2.produto pro2 where pro2.preco > 100)";
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<? extends Pedido> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(p -> System.out.println("ID : " + p.getId()));
     }
 }
