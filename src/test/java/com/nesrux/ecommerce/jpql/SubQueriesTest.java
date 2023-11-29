@@ -2,6 +2,7 @@ package com.nesrux.ecommerce.jpql;
 
 import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.cliente.Cliente;
+import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;
@@ -10,6 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class SubQueriesTest extends EntityManagerTest {
+
     @Test
     public void pesquisarSubQueries() {
 //        //o Produto mais caro da base de dados
@@ -42,6 +44,32 @@ public class SubQueriesTest extends EntityManagerTest {
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
 
         List<? extends Pedido> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(p -> System.out.println("ID : " + p.getId()));
+    }
+
+    @Test
+    public void pesquisaSubqueriesComExsitis() {
+        String jpql = "select p from Produto p where exists " +
+                "(select 1 from ItemPedido ip2 join ip2.produto p2 where p2 = p)";
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<? extends Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+
+        lista.forEach(p -> System.out.println("ID : " + p.getId()));
+    }
+
+    @Test
+    public void desafio_produto_categoria_igual_a_dois() {
+        String jpql = "select p from Pedido p where p.id in" +
+                "   (select p2.id from ItemPedido i2 " +
+                "   join i2.pedido p2 join i2.produto pro2 join pro2.categorias c2 where c2.id = 2)";
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
         Assert.assertFalse(lista.isEmpty());
 
         lista.forEach(p -> System.out.println("ID : " + p.getId()));
