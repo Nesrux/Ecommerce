@@ -5,6 +5,7 @@ import com.nesrux.ecommerce.model.cliente.Cliente;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import util.EntityManagerTest;
 
 import javax.persistence.TypedQuery;
@@ -73,5 +74,15 @@ public class SubQueriesTest extends EntityManagerTest {
         Assert.assertFalse(lista.isEmpty());
 
         lista.forEach(p -> System.out.println("ID : " + p.getId()));
+    }
+    @Test
+    public void todos_os_clientes_que_fizeram_2Pedidos(){
+        String jpql = "select c from Cliente c where (select count(cliente) from Pedido p) > 2";
+        TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+
+        List<Cliente> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(p -> System.out.println("Nome : " + p.getNome()));
     }
 }
