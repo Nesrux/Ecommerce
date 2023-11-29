@@ -1,12 +1,14 @@
 package com.nesrux.ecommerce.model.cliente;
 
 import com.nesrux.ecommerce.model.EntidadeBaseInteger;
+import com.nesrux.ecommerce.model.Pedido.Pedido;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -34,6 +36,10 @@ public class Cliente extends EntidadeBaseInteger {
 
     @Column(name = "data_nascimento", table = "cliente_detalhe")
     private LocalDate dataNascimento;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos;
+
 
     //TODO util para o amimais
     @ElementCollection
