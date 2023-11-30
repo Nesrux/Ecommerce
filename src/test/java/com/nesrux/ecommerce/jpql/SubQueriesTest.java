@@ -13,6 +13,18 @@ import java.util.List;
 public class SubQueriesTest extends EntityManagerTest {
 
     @Test
+    public void pesquisarComAny() {
+        String jpql = "select p from Produto p where " +
+                "p.preco = ANY (select precoProduto from ItemPedido where produto = p)";
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<? extends Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(p -> System.out.println("ID : " + p.getId()));
+    }
+
+    @Test
     public void pesquisarComAll() {
         String jpql = "select p from Produto p where " +
                 "p.preco = ALL (select precoProduto from ItemPedido where  produto = p)";
@@ -107,7 +119,7 @@ public class SubQueriesTest extends EntityManagerTest {
         TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
         List<? extends Produto> lista = typedQuery.getResultList();
         /*essa asserssão não esta passando por causa que eu não editei o arquivo dados iniciais kindle para nao sujar
-        * a base de dados, porém é valido afirmar que isso funciona! anrigamente isso tava como asserFalse*/
+         * a base de dados, porém é valido afirmar que isso funciona! anrigamente isso tava como asserFalse*/
         Assert.assertTrue(lista.isEmpty());
 
         lista.forEach(p -> System.out.println("id  : " + p.getId()));
