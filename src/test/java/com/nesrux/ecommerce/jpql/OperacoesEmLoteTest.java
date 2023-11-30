@@ -20,8 +20,12 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
     @Test
     public void atualizarEmLote() {
         entityManager.getTransaction().begin();
-        String jpql = "update Produto p set p.preco = p.preco + 1 where id between 1 and 5";
+        //  String jpql = "update Produto p set p.preco = p.preco + 1 where id between 1 and 5";
+        String jpql = "update Produto p set p.preco = p.preco + (p.preco * 0.1) " +
+                " where exists (select 1 from p.categorias c2 where c2.id = :categoria)";
+
         Query query = entityManager.createQuery(jpql);
+        query.setParameter("categoria", 2);
         query.executeUpdate();
         entityManager.getTransaction().commit();
     }
