@@ -4,6 +4,7 @@ import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Test;
 import util.EntityManagerTest;
 
+import javax.persistence.Query;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,15 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
     private static final int LIMITE_INSERCOES = 4;
 
     @Test
+    public void atualizarEmLote() {
+        entityManager.getTransaction().begin();
+        String jpql = "update Produto p set p.preco = p.preco + 1 where id between 1 and 5";
+        Query query = entityManager.createQuery(jpql);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
+    }
+
+    @Test
     public void inserirEmLote() throws IOException {
         InputStream in = OperacoesEmLoteTest.class.getClassLoader()
                 .getResourceAsStream("produtos/importar.txt");
@@ -27,7 +37,7 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
 
         int contadorInsercoes = 0;
 
-        for(String linha: reader.lines().collect(Collectors.toList())) {
+        for (String linha : reader.lines().collect(Collectors.toList())) {
             if (linha.isBlank()) {
                 continue;
             }
