@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.jpql;
 
+import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +10,13 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class NamedQueryTest extends EntityManagerTest {
+    @Test
+    public void executarNamedQueryEmArquivoExterno() {
+        TypedQuery<Pedido> typedQuery = entityManager.createNamedQuery("Pedido.listar", Pedido.class);
+        List<Pedido> list = typedQuery.getResultList();
+
+        Assert.assertFalse(list.isEmpty());
+    }
 
     @Test
     public void excutarConsulta() {
@@ -18,6 +26,7 @@ public class NamedQueryTest extends EntityManagerTest {
 
         Assert.assertFalse(lista.isEmpty());
     }
+
 
     @Test
     public void excutarConsultaDe1Entidade() {
