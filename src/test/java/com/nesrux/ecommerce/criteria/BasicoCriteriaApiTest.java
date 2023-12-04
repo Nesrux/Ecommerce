@@ -1,6 +1,7 @@
 package com.nesrux.ecommerce.criteria;
 
 import com.nesrux.ecommerce.model.Pedido.Pedido;
+import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 import util.EntityManagerTest;
@@ -13,6 +14,21 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class BasicoCriteriaApiTest extends EntityManagerTest {
+
+    @Test
+    public void retornarTodosOsProdutos() {
+        // CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Produto> query = entityManager.getCriteriaBuilder()
+                .createQuery(Produto.class);
+
+        Root<Produto> root = query.from(Produto.class);
+        query.select(root);
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(query);
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
     @Test
     public void selecionarAtributoParaRetorno() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
