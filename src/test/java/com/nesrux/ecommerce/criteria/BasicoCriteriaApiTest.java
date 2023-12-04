@@ -14,6 +14,20 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class BasicoCriteriaApiTest extends EntityManagerTest {
+    @Test
+    public void projetarResultado() {
+        CriteriaQuery<Object[]> query = entityManager.getCriteriaBuilder()
+                .createQuery(Object[].class);
+
+        Root<Produto> root = query.from(Produto.class);
+        query.multiselect(root.get("id"), root.get("nome"));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(query);
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr-> System.out.println(arr[0] + " -- " + arr[1]));
+    }
 
     @Test
     public void retornarTodosOsProdutos() {
@@ -32,6 +46,7 @@ public class BasicoCriteriaApiTest extends EntityManagerTest {
     @Test
     public void selecionarAtributoParaRetorno() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
         CriteriaQuery<BigDecimal> criteriaQuery = criteriaBuilder.createQuery(BigDecimal.class);
         Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
