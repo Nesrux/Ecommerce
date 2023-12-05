@@ -3,7 +3,7 @@ package com.nesrux.ecommerce.criteria;
 import com.nesrux.ecommerce.model.Pedido.ItemPedido;
 import com.nesrux.ecommerce.model.Pedido.Pagamento;
 import com.nesrux.ecommerce.model.Pedido.Pedido;
-import com.nesrux.ecommerce.model.cliente.Cliente;
+import com.nesrux.ecommerce.model.Pedido.StatusPagamento;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,5 +35,23 @@ public class JoinCriteriaTest extends EntityManagerTest {
         List<Pedido> lista = typedQuery.getResultList();
 
         Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void fazerJoinComOn() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        Join<Pedido, Pagamento> pedidoPagamentoJoin = root.join("pagamento");
+        pedidoPagamentoJoin.on(criteriaBuilder.equal(pedidoPagamentoJoin.get("status"),
+                StatusPagamento.PROCESSANDO));
+
+        criteriaQuery.select(root);
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> list = typedQuery.getResultList();
+
+        Assert.assertFalse(list.isEmpty());
     }
 }
