@@ -1,5 +1,6 @@
 package com.nesrux.ecommerce.criteria;
 
+import com.nesrux.ecommerce.dto.ProdutoDto;
 import com.nesrux.ecommerce.model.Pedido.Pedido;
 import com.nesrux.ecommerce.model.produto.Produto;
 import org.junit.Assert;
@@ -15,6 +16,24 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class BasicoCriteriaApiTest extends EntityManagerTest {
+
+    @Test
+    public void projetarResultadoDto() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProdutoDto> query = criteriaBuilder.createQuery(ProdutoDto.class);
+
+        Root<Produto> root = query.from(Produto.class);
+
+        query.select(criteriaBuilder.construct(ProdutoDto.class,
+                root.get("id"), root.get("nome")));
+
+        TypedQuery<ProdutoDto> typedQuery = entityManager.createQuery(query);
+        List<ProdutoDto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(dto -> System.out.println(dto.getId() + " -- " + dto.getNome()));
+    }
+
     @Test
     public void projetarTupla() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
