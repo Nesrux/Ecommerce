@@ -69,4 +69,25 @@ public class JoinCriteriaTest extends EntityManagerTest {
         Assert.assertFalse(list.isEmpty());
     }
 
+    @Test
+    public void fazerJoinComFetch() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        root.fetch("itens", JoinType.LEFT);
+        root.fetch("notaFiscal", JoinType.LEFT);
+        root.fetch("pagamento", JoinType.LEFT);
+        root.fetch("cliente");
+
+        criteriaQuery.select(root)
+                .where(criteriaBuilder.equal(root.get("id"), 1));
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        Pedido pedido = typedQuery.getSingleResult();
+
+        Assert.assertNotNull(pedido);
+        Assert.assertFalse(pedido.getItens().isEmpty());
+    }
+
 }
