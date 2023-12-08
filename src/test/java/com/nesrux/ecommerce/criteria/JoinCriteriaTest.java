@@ -10,10 +10,7 @@ import org.junit.Test;
 import util.EntityManagerTest;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 public class JoinCriteriaTest extends EntityManagerTest {
@@ -54,4 +51,22 @@ public class JoinCriteriaTest extends EntityManagerTest {
 
         Assert.assertFalse(list.isEmpty());
     }
+
+    @Test
+    public void fazerJoinComLeftOuterJoin() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        Join<Pedido, Pagamento> pedidoPagamentoJoin = root.join("pagamento",
+                JoinType.LEFT);
+
+        criteriaQuery.select(root);
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> list = typedQuery.getResultList();
+
+        Assert.assertFalse(list.isEmpty());
+    }
+
 }
